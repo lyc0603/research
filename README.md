@@ -1,129 +1,82 @@
-# multi-agent
-[Project Description]
+# [Project Name]
 
-Clone this repository
+## Setup
 
-```bash
-git clone [HTTPS/SSH]
+```
+git clone [HTTPS/SSH URL]
+cd [project-name]
 ```
 
-Navigate to the directory of the cloned repo
+### Give execute permission to your script and then run `setup_repo.sh`
 
-```bash
-cd [repo-name]
+```
+chmod +x setup_repo.sh
+./setup_repo.sh
+. venv/bin/activate
 ```
 
-## Installation
+or follow the step-by-step instructions below between the two horizontal rules:
 
-To install the latest release on `PyPI <https://pypi.org/project/toml/>`_, run:
+---
+
+#### Create a python virtual environment
+
+- MacOS / Linux
 
 ```bash
-pip install toml
-```
-
-### Create a python virtual environment
-
-- iOS
-
-```zsh
 python3 -m venv venv
 ```
 
 - Windows
 
-```
+```bash
 python -m venv venv
 ```
 
-### Activate the virtual environment
+#### Activate the virtual environment
 
-- iOS
+- MacOS / Linux
 
-```zsh
+```bash
 . venv/bin/activate
 ```
 
 - Windows (in Command Prompt, NOT Powershell)
 
-```zsh
+```bash
 venv\Scripts\activate.bat
 ```
 
-## Install the project in editable mode
+#### Install toml
 
 ```
+pip install toml
+```
+
+#### Install the project in editable mode
+
+```bash
 pip install -e ".[dev]"
 ```
-## Connect to a full node to fetch on-chain data
 
-Connect to a full node using `ssh` with port forwarding flag `-L` on:
+## Set up the environmental variables
 
-```zsh
-ssh -L 8545:localhost:8545 satoshi.doc.ic.ac.uk
+put your APIs in `.env`:
+
+```
+COINGLASS_SECRET="abc123"
+KAIKO_API_KEY="abc123"
+TALLY_API_KEY="xxx"
+SNAPSHOT_API_KEY="aaa"
+OPENAI_API_KEY="sk-xxx"
 ```
 
-Assign URI value to `WEB3_PROVIDER_URI` in a new terminal:
-
-```zsh
-set -xg WEB3_PROVIDER_URI http://localhost:8545
+```
+export $(cat .env | xargs)
 ```
 
----
+# fetch snapshot spaces data
 
-## Git Large File Storage (Git LFS)
-
-All files in [`data/`](data/) are stored with `lfs`.
-
-To initialize Git LFS:
-
-```bash
-git lfs install
 ```
-
-```bash
-git lfs track data/**/*
+python scripts/fetch_spaces.py
 ```
-
-To pull data files, use
-
-```bash
-git lfs pull
-```
-
-## Synchronize with the repo
-
-Always pull latest code first
-
-```bash
-git pull
-```
-
-Make changes locally, save. And then add, commit and push
-
-```bash
-git add [file-to-add]
-git commit -m "update message"
-git push
-```
-
-# Best practice
-
-## Coding Style
-
-We follow [PEP8](https://www.python.org/dev/peps/pep-0008/) coding format.
-The most important rules above all:
-
-1. Keep code lines length below 80 characters. Maximum 120. Long code lines are NOT readable.
-1. We use snake_case to name function, variables. CamelCase for classes.
-1. We make our code as DRY (Don't repeat yourself) as possible.
-1. We give a description to classes, methods and functions.
-1. Variables should be self explaining and just right long:
-   - `implied_volatility` is preferred over `impl_v`
-   - `implied_volatility` is preferred over `implied_volatility_from_broker_name`
-
-## Do not
-
-1. Do not place .py files at root level (besides setup.py)!
-1. Do not upload big files > 100 MB.
-1. Do not upload log files.
-1. Do not declare constant variables in the MIDDLE of a function
