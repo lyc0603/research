@@ -173,3 +173,5 @@ cython_debug/
 environ/constants.py
 data/
 processed_data/
+
+.DS_Store
